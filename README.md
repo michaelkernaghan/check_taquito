@@ -1,62 +1,27 @@
-# Taquito Checker
+# Dapp Radar Taquito Checker
 
-This repository contains a script that uses Puppeteer to check whether a list of websites makes any network requests that include the word 'taquito'. 
+This script checks the top 25 Tezos websites on Dapp Radar for usage of the Taquito JavaScript library. If there is an error reaching a website, a message is printed in red letters indicating that the website was unreachable, and the script will skip to the next website.
 
-## Description
+## How it works
 
-The script launches a headless browser for each website in the list, intercepts all network requests, and checks if the URL of each request includes the word 'taquito'. The results are logged to the console.
+The script uses Puppeteer to launch a headless browser and navigate to each website. It intercepts all network requests made by the page, and if any of the requests contain 'taquito' in the URL, it is assumed that the website is using the Taquito JavaScript library.
 
-## Installation
-
-To use this script, you will need Node.js and npm installed. You can then install the required dependencies with:
-
-```
-npm install puppeteer
-```
+The script also fetches and parses JavaScript files from the intercepted requests using Babel's parser. It then traverses the parsed JavaScript code to look for usage of the 'taquito' identifier. If 'taquito' is found, a message is printed to the console.
 
 ## Usage
 
-To use the script, you can add the websites you want to check to the `websites` array at the bottom of the `index.js` file. Then run the script with:
+1. Install the required dependencies:
 
-```
-node index.js
-```
+    ```bash
+    npm install puppeteer @babel/parser estraverse node-fetch
+    ```
 
-The script will log a message for each website in the format `Website [URL] uses Taquito: [true/false]`.
+2. Run the script:
 
-## Code
+    ```bash
+    node check_taquito.js
+    ```
 
-Here is the main part of the script:
+## Note
 
-```javascript
-const puppeteer = require('puppeteer');
-
-async function checkForTaquito(URL) {
-    let usesTaquito = false;
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-
-    await page.setRequestInterception(true);
-    page.on('request', (request) => {
-        if (request.url().includes('taquito')) {
-            console.log(`Taquito found in request: ${request.url()}`);
-            usesTaquito = true;
-        }
-        request.continue();
-    });
-
-    await page.goto(url);
-    await browser.close();
-    return usesTaquito;
-}
-
-async function checkWebsites(websites) {
-    for (const website of websites) {
-        const usesTaquito = await checkForTaquito(website);
-        console.log(`Website ${website} uses Taquito: ${usesTaquito}`);
-    }
-}
-
-const websites = ['https://de.fi/', 'https://ctez.app/'];
-checkWebsites(websites);
-```
+This script provides a basic check and might not catch all uses of the Taquito library, especially if the library is bundled or obfuscated in some way that removes or changes the 'taquito' string in the request URLs or the JavaScript code. For a more thorough check, you might need to analyze the website's JavaScript code directly.
