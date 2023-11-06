@@ -52,6 +52,14 @@ async function checkWebsites(websites) {
     const tasks = websites.map(website => limit(() => checkForTaquito(website)));
     const results = await Promise.all(tasks);
     console.table(results);
+
+    // Calculate and log the percentages
+    const reachableWebsites = results.filter(result => result.reachable).length;
+    const websitesUsingTaquito = results.filter(result => result.usesTaquito).length;
+    const reachableWebsitesUsingTaquito = results.filter(result => result.reachable && result.usesTaquito).length;
+    console.log(`Top 25 Tezos Dapps reachable sites: ${reachableWebsites / websites.length * 100}%`);
+    console.log(`Top 25 Tezos Dapps that use Taquito: ${websitesUsingTaquito / websites.length * 100}%`);
+    console.log(`Top 25 Tezos Dapps reachable sites that Taquito: ${(reachableWebsitesUsingTaquito / reachableWebsites * 100).toFixed(2)}%`);
 }
 
 async function getWebsitesFromAPI() {
@@ -72,6 +80,7 @@ async function getWebsitesFromAPI() {
 
 async function main() {
     console.log(chalk.yellow(`Looking for Taquito in the top 25 Tezos Dapps`));
+    console.log(chalk.yellow(`Checking Site Connectivity ...`));
     const websites = await getWebsitesFromAPI();
     await checkWebsites(websites);
 }
