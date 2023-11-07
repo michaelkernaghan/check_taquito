@@ -45,13 +45,28 @@ async function checkForTaquito(url) {
     return result;
 }
 
+const Table = require('cli-table3');
+
 async function checkWebsites(websites) {
     const pLimit = (await import('p-limit')).default;
     const limit = pLimit(5); // limit to 5 concurrent tasks
 
     const tasks = websites.map(website => limit(() => checkForTaquito(website)));
     const results = await Promise.all(tasks);
-    console.table(results);
+
+    // Create a new table
+    const table = new Table({
+        head: ['Website', 'Reachable', 'Uses Taquito'],
+        chars: { 'true': chalk.green('✔'), 'false': chalk.red('✖') }
+    });
+
+    // Add each result to the table
+    results.forEach(result => {
+        table.push([result.website, result.reachable ? '✔' : '✖', result.usesTaquito ? '✔' : '✖']);
+    });
+
+    console.log(table.toString());
+
 
     // Calculate and log the percentages
     const reachableWebsites = results.filter(result => result.reachable).length;

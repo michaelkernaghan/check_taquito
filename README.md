@@ -42,4 +42,20 @@ The program consists of four main functions:
 
 ## Potential Improvements
 
-This program could be further improved by adding more detailed logging, such as logging the progress of the fetch requests, or logging the details of any errors encountered. It could also benefit from a more sophisticated system for handling errors and retries, such as using an exponential backoff strategy for retrying failed requests.
+The Taquito Checker Program is a useful tool for checking whether specific websites are using the Taquito library. However, for improvement:
+
+1. **Error Handling:** While the code does have some error handling in place, it could be more robust. For example, it could handle more specific types of errors, or retry failed operations a certain number of times before giving up.
+
+2. **Performance:** The program checks each website one by one, which could be slow if there are many websites to check. It could be improved by checking multiple websites concurrently. However, this must be done carefully to avoid exceeding the maximum number of listeners.
+
+3. **Output:** The program outputs the results as a console table, which is not the most user-friendly or accessible format. It could be improved by providing the option to output the results in different formats, such as a CSV file or a JSON file.
+
+4. **Testing:** The program does not appear to have any tests. It could be improved by adding unit tests, integration tests, and end-to-end tests to ensure that it works correctly and to catch any regressions.
+
+5. **Documentation:** The program could benefit from more detailed comments and documentation, explaining what each part of the code does and why it does it. This would make the program easier to understand and maintain.
+
+6. **Configurability:** Currently, the program is hard-coded to check the top 25 Tezos Dapps. It could be improved by making it more configurable, allowing the user to specify which websites to check, how many to check, etc.
+
+7. **Security:** The API key is hard-coded into the program, which is a potential security risk. It would be better to store it in a secure way, such as using environment variables. 
+
+8. **Code Organisation:** The code could be better organized. For example, it could be split into separate modules, each responsible for a specific part of the functionality (fetching the websites, checking a website, etc.). This would make the code more modular, easier to understand and maintain.
