@@ -1,4 +1,4 @@
-# Taquito Website Checker
+# Taquito Checker
 
 This program checks the top 25 Tezos Dapps for the usage of Taquito, a TypeScript library suite for development on the Tezos blockchain. It uses Puppeteer to launch a headless browser, fetch JavaScript files from each website, and checks if these files contain the string 'taquito'.
 
