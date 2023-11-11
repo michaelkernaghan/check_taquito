@@ -2,8 +2,7 @@ const puppeteer = require('puppeteer');
 const chalk = require('chalk');
 const fetch = require('node-fetch');
 const { Octokit } = require("@octokit/core");
-// Use the GitHub token from the environment variables
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const octokit = new Octokit({ auth: `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` });
 
 async function checkForTaquito(url) {
     let result = {
