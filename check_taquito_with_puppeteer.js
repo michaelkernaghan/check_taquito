@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const chalk = require('chalk');
 const fetch = require('node-fetch');
+const { Octokit } = require("@octokit/core");
+const octokit = new Octokit({ auth: `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` });
 
 async function checkForTaquito(url) {
     let result = {
@@ -73,8 +75,8 @@ async function checkWebsites(websites) {
     const websitesUsingTaquito = results.filter(result => result.usesTaquito).length;
     const reachableWebsitesUsingTaquito = results.filter(result => result.reachable && result.usesTaquito).length;
     console.log(`Top 25 Tezos Dapps reachable sites: ${reachableWebsites / websites.length * 100}%`);
-    console.log(`Top 25 Tezos Dapps that use Taquito: ${websitesUsingTaquito / websites.length * 100}%`);
-    console.log(`Top 25 Tezos Dapps reachable sites that Taquito: ${(reachableWebsitesUsingTaquito / reachableWebsites * 100).toFixed(2)}%`);
+    console.log(`Top 25 Tezos Dapps that have Taquito: ${websitesUsingTaquito / websites.length * 100}%`);
+    console.log(`Top 25 Tezos Dapps reachable sites that have Taquito: ${(reachableWebsitesUsingTaquito / reachableWebsites * 100).toFixed(2)}%`);
 }
 
 async function getWebsitesFromAPI() {
@@ -85,18 +87,110 @@ async function getWebsitesFromAPI() {
             }
         });
         const data = await response.json();
+        console.log(data);
         const websites = data.results.map(dapp => dapp.website);
         return websites;
+
     } catch (error) {
         console.error(chalk.red(`Failed to fetch websites from API: ${error}`));
         return [];
     }
 }
 
+async function searchGitHubRepositories(dappName) {
+    try {
+        const query = dappName.replace(/ /g, '+') + '+in:name';
+        const response = await octokit.request('GET /search/repositories', { q: query });
+
+        const checks = await Promise.all(response.data.items.map(async (repo) => {
+            console.log('Checking repository:', repo);
+            const usesTaquito = await checkIfRepoUsesTaquito(repo.html_url);
+            return { ...repo, usesTaquito };
+        }));
+
+        return checks.filter(repo => repo.usesTaquito).map(repo => ({ name: repo.name, url: repo.html_url }));
+    } catch (error) {
+        console.error(chalk.red(`GitHub search failed for ${dappName}: ${error}`));
+        return [];
+    }
+}
+
+function extractNameFromURL(url) {
+    try {
+        const urlObj = new URL(url);
+        console.log(urlObj.hostname);
+        console.log(urlObj.hostname.replace('www.', '').split('.')[0]);
+        return urlObj.hostname.replace('www.', '').split('.')[0];
+    } catch (error) {
+        console.error(chalk.red(`Error extracting name from URL: ${url}`));
+        return null;
+    }
+}
+
+//  async function checkGitHubRepository(name) {
+//      const repoUrl = `https://github.com/${name}`;
+//      try {
+//          const response = await fetch(repoUrl);
+//          if (response.ok) {
+//              console.log(chalk.green(`Repository found: ${repoUrl}`));
+//              return { name, url: repoUrl, exists: true };
+//          } else {
+//              console.log(chalk.yellow(`Repository not found or private: ${repoUrl}`));
+//              return { name, url: repoUrl, exists: false };
+//          }
+//      } catch (error) {
+//          console.error(chalk.red(`Error checking repository for ${name}: ${error}`));
+//          return { name, url: repoUrl, exists: false };
+//      }
+//  }
+
+async function checkIfRepoUsesTaquito(repo) {
+    try {
+        // Validate that the repo object and its properties are defined
+        if (!repo || !repo.contents_url || repo.private) {
+            console.log(chalk.yellow(`Invalid repository data or repository is private: ${JSON.stringify(repo)}`));
+            return false;
+        }
+
+        // Construct the URL for package.json
+        const packageJsonUrl = repo.contents_url.replace('{+path}', 'package.json');
+        const response = await octokit.request('GET ' + packageJsonUrl);
+
+        // Check for a successful response and that dependencies include 'taquito'
+        if (response.status === 200) {
+            const packageJsonContent = Buffer.from(response.data.content, 'base64').toString();
+            const packageJson = JSON.parse(packageJsonContent);
+            return packageJson.dependencies && packageJson.dependencies['taquito'];
+        }
+    } catch (error) {
+        if (error.status === 404) {
+            console.log(chalk.yellow(`package.json not found in ${repo.html_url}`));
+        } else {
+            console.error(chalk.red(`Error checking repository for Taquito: ${error}`));
+        }
+    }
+    return false;
+}
+
 async function main() {
     console.log(chalk.yellow(`Looking for Taquito in the top 25 Tezos Dapps`));
-    console.log(chalk.yellow(`Checking Site Connectivity ...`));
+    console.log(chalk.yellow(`Checking Site Connectivity and GitHub Repositories...`));
     const websites = await getWebsitesFromAPI();
+
+    for (const website of websites) {
+        const name = website.name || extractNameFromURL(website);
+        if (name) {
+            const reposUsingTaquito = await searchGitHubRepositories(name);
+            if (reposUsingTaquito.length > 0) {
+                console.log(`Taquito-using repositories for ${name}:`, reposUsingTaquito);
+            } else {
+                console.log(`No Taquito-using repositories found for ${name}`);
+            }
+        } else {
+            console.log('Failed to determine name for website:', website);
+        }
+    }
+
     await checkWebsites(websites);
 }
 
