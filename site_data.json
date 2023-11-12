@@ -1,104 +1,608 @@
 {
-    "combined": [
-        {
-            "name": "rarible",
-            "website": "https://rarible.com"
-        },
-        {
-            "name": "hicetnunc",
-            "website": "https://www.hicetnunc.xyz/"
-        },
-        {
-            "name": "kalamint",
-            "website": "https://kalamint.io/"
-        },
-        {
-            "name": "quipuswap",
-            "website": "https://quipuswap.com/"
-        },
-        {
-            "name": "tzcolors",
-            "website": "https://www.tzcolors.io/"
-        },
-        {
-            "name": "atomex",
-            "website": "https://atomex.me/"
-        },
-        {
-            "name": "uanon",
-            "website": "https://uanon.observer/"
-        },
-        {
-            "name": "kolibri",
-            "website": "https://kolibri.finance/"
-        },
-        {
-            "name": "dexter",
-            "website": "https://dexter.exchange/"
-        },
-        {
-            "name": "tzbutton",
-            "website": "https://tzbutton.io/"
-        },
-        {
-            "name": "tezos-mandala",
-            "website": "https://tezos-mandala.art/"
-        },
-        {
-            "name": "plenty",
-            "website": "https://www.plenty.network/"
-        },
-        {
-            "name": "bazaarnft",
-            "website": "https://bazaarnft.xyz/"
-        },
-        {
-            "name": "tezex",
-            "website": "https://tezex.io/"
-        },
-        {
-            "name": "stakepool",
-            "website": "https://stakepool.live/"
-        },
-        {
-            "name": "pixelpotus",
-            "website": "https://www.pixelpotus.com/"
-        },
-        {
-            "name": "tezosswap",
-            "website": "https://tezosswap.com/"
-        },
-        {
-            "name": "tezos-domains",
-            "website": "https://tezos.domains/"
-        },
-        {
-            "name": "heranetwork",
-            "website": "https://heranetwork.co/"
-        },
-        {
-            "name": "flamedefi",
-            "website": "https://flamedefi.io"
-        },
-        {
-            "name": "stakerdao",
-            "website": "https://www.stakerdao.com"
-        },
-        {
-            "name": "vortex",
-            "website": "https://vortex.network/"
-        },
-        {
-            "name": "rampdefi",
-            "website": "https://rampdefi.com"
-        },
-        {
-            "name": "sebuh",
-            "website": "https://sebuh.net"
-        },
-        {
-            "name": "crunchy",
-            "website": "https://app.crunchy.network/"
-        }
-    ]
+  "combined": [
+    {
+      "name": "Rarible",
+      "website": "https://rarible.com"
+    },
+    {
+      "name": "Hic et Nunc",
+      "website": "https://www.hicetnunc.xyz/"
+    },
+    {
+      "name": "Kalamint",
+      "website": "https://kalamint.io/"
+    },
+    {
+      "name": "QuipuSwap",
+      "website": "https://quipuswap.com/"
+    },
+    {
+      "name": "TzColors",
+      "website": "https://www.tzcolors.io/"
+    },
+    {
+      "name": "Atomex",
+      "website": "https://atomex.me/"
+    },
+    {
+      "name": "Project Uanon",
+      "website": "https://uanon.observer/"
+    },
+    {
+      "name": "Kolibri",
+      "website": "https://kolibri.finance/"
+    },
+    {
+      "name": "Dexter",
+      "website": "https://dexter.exchange/"
+    },
+    {
+      "name": "TzButton",
+      "website": "https://tzbutton.io/"
+    },
+    {
+      "name": "Tezos Mandala",
+      "website": "https://tezos-mandala.art/"
+    },
+    {
+      "name": "Plenty",
+      "website": "https://www.plenty.network/"
+    },
+    {
+      "name": "Bazaar Market",
+      "website": "https://bazaarnft.xyz/"
+    },
+    {
+      "name": "TEZEX",
+      "website": "https://tezex.io/"
+    },
+    {
+      "name": "Stakepool",
+      "website": "https://stakepool.live/"
+    },
+    {
+      "name": "PixelPotus",
+      "website": "https://www.pixelpotus.com/"
+    },
+    {
+      "name": "TezosSwap",
+      "website": "https://tezosswap.com/"
+    },
+    {
+      "name": "Tezos Domains",
+      "website": "https://tezos.domains/"
+    },
+    {
+      "name": "Hera Network",
+      "website": "https://heranetwork.co/"
+    },
+    {
+      "name": "FlameDeFi",
+      "website": "https://flamedefi.io"
+    },
+    {
+      "name": "StakerDAO",
+      "website": "https://www.stakerdao.com"
+    },
+    {
+      "name": "Vortex",
+      "website": "https://vortex.network/"
+    },
+    {
+      "name": "RAMP DEFI",
+      "website": "https://rampdefi.com"
+    },
+    {
+      "name": "Sebuh.net",
+      "website": "https://sebuh.net"
+    },
+    {
+      "name": "Crunchy",
+      "website": "https://app.crunchy.network/"
+    },
+    {
+      "name": "Dos Esposas Restaurante",
+      "website": "https://dos-esposas.restaurant/"
+    },
+    {
+      "name": "$FARM",
+      "website": "https://farmsoil.xyz/"
+    },
+    {
+      "name": "SalsaDAO",
+      "website": "https://salsadao.xyz"
+    },
+    {
+      "name": "World War Tez",
+      "website": "https://www.worldwartez.com"
+    },
+    {
+      "name": "Alien'sFarm",
+      "website": "https://aliens.farm/"
+    },
+    {
+      "name": "The Magic Button",
+      "website": "https://magic-button.io/"
+    },
+    {
+      "name": "youves",
+      "website": "https://app.youves.com/"
+    },
+    {
+      "name": "Golden Goals",
+      "website": "https://www.goldengoals.io/"
+    },
+    {
+      "name": "Tezotopia",
+      "website": "https://tezotopia.com"
+    },
+    {
+      "name": "tzPunks",
+      "website": "https://tzpunks.com/"
+    },
+    {
+      "name": "Rocket Launchpad",
+      "website": "https://rocketlaunchpad.io/"
+    },
+    {
+      "name": "CervezaBrewery",
+      "website": "https://www.cervezabrewery.io"
+    },
+    {
+      "name": "Planetz",
+      "website": "https://planetz.app/all"
+    },
+    {
+      "name": "objkt.com",
+      "website": "https://objkt.com"
+    },
+    {
+      "name": "Bunny Knights",
+      "website": "https://www.bunnyknights.com"
+    },
+    {
+      "name": "TezID",
+      "website": "https://tezid.net"
+    },
+    {
+      "name": "Wrap Protocol",
+      "website": "https://app.tzwrap.com/wrap"
+    },
+    {
+      "name": "RADION FM",
+      "website": "https://www.radion.fm"
+    },
+    {
+      "name": "Kumulus",
+      "website": "https://www.kumulus-project.com/"
+    },
+    {
+      "name": "SpicySwap",
+      "website": "https://spicyswap.xyz"
+    },
+    {
+      "name": "MoneyHero",
+      "website": "https://moneyhero.io"
+    },
+    {
+      "name": "ByteBlock NFT",
+      "website": "https://byteblock.art/"
+    },
+    {
+      "name": "Pentas",
+      "website": "https://www.pentas.io/"
+    },
+    {
+      "name": "Subtrack",
+      "website": "https://www.subtrack.fr"
+    },
+    {
+      "name": "Hash Three Points",
+      "website": "https://h3p.deconcept.com/"
+    },
+    {
+      "name": "Les Elefants Terribles",
+      "website": "https://elefantsterribles.xyz"
+    },
+    {
+      "name": "Instaraise",
+      "website": "https://instaraise.io"
+    },
+    {
+      "name": "Sirius",
+      "website": "https://siriustoken.io/"
+    },
+    {
+      "name": "Pixel Place",
+      "website": "https://pixelplace.tez.page/"
+    },
+    {
+      "name": "fxhash",
+      "website": "https://www.fxhash.xyz/"
+    },
+    {
+      "name": "Matter DeFi",
+      "website": "https://matterdefi.xyz"
+    },
+    {
+      "name": "Versum",
+      "website": "https://versum.xyz"
+    },
+    {
+      "name": "akaSwap",
+      "website": "https://akaswap.com/"
+    },
+    {
+      "name": "101PXL",
+      "website": "https://www.101pxl.space"
+    },
+    {
+      "name": "DOGAMÍ",
+      "website": "https://dogami.com/"
+    },
+    {
+      "name": "Tez Dozen",
+      "website": "https://tezdozen.xyz/"
+    },
+    {
+      "name": "tez3d",
+      "website": "https://tez3d.art/"
+    },
+    {
+      "name": "Glitch Forge",
+      "website": "https://glitchforge.xyz"
+    },
+    {
+      "name": "TZcards",
+      "website": "https://www.tzcards.xyz/"
+    },
+    {
+      "name": "Teia",
+      "website": "https://teia.art/"
+    },
+    {
+      "name": "8bidou",
+      "website": "https://www.8bidou.com/"
+    },
+    {
+      "name": "Tezumura Japanese Art Collectible",
+      "website": "https://tezumura.xyz"
+    },
+    {
+      "name": "PixelDeMNs",
+      "website": "https://pixeldemns.xyz"
+    },
+    {
+      "name": "Juster",
+      "website": "https://juster.fi"
+    },
+    {
+      "name": "TwiTz NFT",
+      "website": "https://www.twitznft.xyz/"
+    },
+    {
+      "name": "Tezos Pixels",
+      "website": "https://tzpixels.xyz"
+    },
+    {
+      "name": "Xarb",
+      "website": "https://xarb.io/"
+    },
+    {
+      "name": "Smartlink",
+      "website": "https://www.smartlink.so/"
+    },
+    {
+      "name": "Crypto Arcade",
+      "website": "https://arcade-crypto.com/"
+    },
+    {
+      "name": "XP.Network NFT Bridge",
+      "website": "https://xp.network"
+    },
+    {
+      "name": "Post No Pixels",
+      "website": "https://postnopixels.com"
+    },
+    {
+      "name": "typed",
+      "website": "https://typed.art/"
+    },
+    {
+      "name": "Tokenart",
+      "website": "https://tokenart.app"
+    },
+    {
+      "name": "Meta Spider",
+      "website": "https://www.metaspider.us/"
+    },
+    {
+      "name": "Trooperz",
+      "website": "https://trooperz.xyz"
+    },
+    {
+      "name": "Predictor",
+      "website": "https://predictor.tez.page/"
+    },
+    {
+      "name": "Pigs at War",
+      "website": "https://pigsatwar.xyz"
+    },
+    {
+      "name": "Yupana Finance",
+      "website": "https://yupana.finance/"
+    },
+    {
+      "name": "Upsorber",
+      "website": "https://upsorber.com"
+    },
+    {
+      "name": "TezosDegenClub",
+      "website": "https://tezosdegenclub.com"
+    },
+    {
+      "name": "Taezars",
+      "website": "https://taezars.com"
+    },
+    {
+      "name": "Big Foot Mafia Club",
+      "website": "https://www.bigfootmafiaclub.com/"
+    },
+    {
+      "name": "ArtForge",
+      "website": "https://www.artforge.io/"
+    },
+    {
+      "name": "Mooncakes",
+      "website": "https://mooncakes.fun/"
+    },
+    {
+      "name": "Ctez",
+      "website": "https://ctez.app"
+    },
+    {
+      "name": "CyberKids Club",
+      "website": "https://cyberkidzclub.xyz"
+    },
+    {
+      "name": "Ubisoft Quartz",
+      "website": "https://quartz.ubisoft.com/"
+    },
+    {
+      "name": "3Route",
+      "website": "https://3route.io/"
+    },
+    {
+      "name": "Acute Art",
+      "website": "https://acuteart.com/"
+    },
+    {
+      "name": "Atelier 09",
+      "website": "https://atelier09.art/"
+    },
+    {
+      "name": "Chop Sumo",
+      "website": "https://chopsumo.xyz"
+    },
+    {
+      "name": "Cryptoeasy",
+      "website": "https://cryptoeasy.io/"
+    },
+    {
+      "name": "Cyber/Mutant Gecko",
+      "website": "https://cybergeckogang.gallery/#/"
+    },
+    {
+      "name": "DNS",
+      "website": "https://dns.xyz/"
+    },
+    {
+      "name": "Ecoo",
+      "website": "https://www.ecoo.ch/"
+    },
+    {
+      "name": "Eifi Finance",
+      "website": "https://eifi.com/"
+    },
+    {
+      "name": "Equisafe",
+      "website": "https://www.equisafe.io/"
+    },
+    {
+      "name": "Lugh",
+      "website": "https://www.lugh.io/"
+    },
+    {
+      "name": "The Fellowship of Ilmeresh",
+      "website": "https://ilmeresh.com/"
+    },
+    {
+      "name": "Flux Tribe",
+      "website": "https://fluxtribe.xyz/"
+    },
+    {
+      "name": "FroggosTez",
+      "website": "https://froggos.xyz/"
+    },
+    {
+      "name": "iheartblob",
+      "website": "https://tab.iheartblob.com/"
+    },
+    {
+      "name": "Gap",
+      "website": "https://www.gap.com/nft/"
+    },
+    {
+      "name": "Gif Games",
+      "website": "https://gif.games/"
+    },
+    {
+      "name": "Kaiko",
+      "website": "https://www.kaiko.com/"
+    },
+    {
+      "name": "Maelstrom Mixer",
+      "website": "https://maelstrom.fi/"
+    },
+    {
+      "name": "Mekatron",
+      "website": "https://www.mekatron.club/"
+    },
+    {
+      "name": "Neonz",
+      "website": "https://www.neonz.xyz/"
+    },
+    {
+      "name": "Nftbutton",
+      "website": "https://nftbutton.com/"
+    },
+    {
+      "name": "Ottez",
+      "website": "https://www.ottez.xyz/"
+    },
+    {
+      "name": "Oxtazy",
+      "website": "https://oxtazy.xyz/"
+    },
+    {
+      "name": "tzDropz",
+      "website": "https://tzdropz.com/"
+    },
+    {
+      "name": "Pix",
+      "website": "https://hic.af/the_pix"
+    },
+    {
+      "name": "PRJKTNEON",
+      "website": "https://www.prjktneon.xyz/"
+    },
+    {
+      "name": "Randomly Common Skeles",
+      "website": "https://commonskeles.xyz/"
+    },
+    {
+      "name": "Rock Paper Scissors",
+      "website": "https://rock-paper-scissors.tez.page/"
+    },
+    {
+      "name": "Tezerfly",
+      "website": "https://www.tezerfly.xyz/"
+    },
+    {
+      "name": "TezLynx",
+      "website": "https://tezlynxsociety.xyz/"
+    },
+    {
+      "name": "Tezo Trooperz",
+      "website": "https://www.tezotrooperz.com/#roadMap"
+    },
+    {
+      "name": "Tezzardz",
+      "website": "https://www.tezzardz.xyz/"
+    },
+    {
+      "name": "Tezzles",
+      "website": "https://www.tezzles.xyz/"
+    },
+    {
+      "name": "Muralis",
+      "website": "https://www.muralis.xyz/"
+    },
+    {
+      "name": "The Moments",
+      "website": "https://themoments.xyz/"
+    },
+    {
+      "name": "ZeroStake Baking",
+      "website": "https://mint.zerostake.xyz/"
+    },
+    {
+      "name": "Staking Team",
+      "website": "https://stakingteam.com/"
+    },
+    {
+      "name": "Tz1and",
+      "website": "https://www.tz1and.com/"
+    },
+    {
+      "name": "tZERO",
+      "website": "https://www.tzero.com/"
+    },
+    {
+      "name": "Ubinetic",
+      "website": "https://ubinetic.com/"
+    },
+    {
+      "name": "Unibotz",
+      "website": "https://www.unibotz.xyz"
+    },
+    {
+      "name": "The Vessel",
+      "website": "https://vesselsproject.xyz/"
+    },
+    {
+      "name": "Werenode",
+      "website": "https://werenode.com/"
+    },
+    {
+      "name": "Wtz Swap",
+      "website": "https://wtz.io/"
+    },
+    {
+      "name": "Ziggurats",
+      "website": "https://ziggurats.xyz"
+    },
+    {
+      "name": "Kord.Fi",
+      "website": "https://kord.fi/"
+    },
+    {
+      "name": "OpusDei",
+      "website": "https://opusdei.money/"
+    },
+    {
+      "name": "The Devils: Manchester United",
+      "website": "https://collectibles.manutd.com/"
+    },
+    {
+      "name": "Emergents TCG",
+      "website": "https://play.emergentstcg.com/"
+    },
+    {
+      "name": "TezFin",
+      "website": "https://tezos.finance"
+    },
+    {
+      "name": "Cricket Stars",
+      "website": "https://cricketstarsgame.com/"
+    },
+    {
+      "name": "admire.art",
+      "website": "https://www.admire.art/"
+    },
+    {
+      "name": "Pixygon Micro",
+      "website": "https://www.pixygon.io"
+    },
+    {
+      "name": "Crossroads: Myth",
+      "website": "https://crossroadsmyth.com/"
+    },
+    {
+      "name": "Stables",
+      "website": "https://playstables.io/"
+    },
+    {
+      "name": "V.Hive",
+      "website": "https://vhive.vitality.gg/"
+    },
+    {
+      "name": "Xworld",
+      "website": "https://objkt.com/collection/KT1LCLG5jecxPf9s2zKgiRrgdwCi1BvU7uoF"
+    },
+    {
+      "name": "NFTrading Cards",
+      "website": "https://www.0x21.xyz/"
+    }
+  ]
 }
