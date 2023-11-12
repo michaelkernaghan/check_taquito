@@ -29,10 +29,10 @@ async function checkForTaquito(url) {
 
                 if (js.includes('taquito')) {
                     result.usesTaquito = true;
-                    console.log(chalk.green(`Found Taquito on ${url} in file ${request.url()}`));
+                    //console.log(chalk.green(`Found Taquito on ${url} in file ${request.url()}`));
                 }
             } catch (error) {
-                console.error(chalk.red(`Failed to fetch ${request.url()}: ${error}`));
+                //console.error(chalk.red(`Failed to fetch ${request.url()}: ${error}`));
             }
         }
         request.continue();
@@ -40,9 +40,9 @@ async function checkForTaquito(url) {
 
     try {
         await page.goto(url);
-        console.log(chalk.blue(`Checking ${url} ...`));
+        //console.log(chalk.blue(`Checking ${url} ...`));
     } catch (error) {
-        console.error(chalk.red(`Failed to reach ${url}: ${error}`));
+        //console.error(chalk.red(`Failed to reach ${url}: ${error}`));
         result.reachable = false;
     }
 
@@ -59,7 +59,7 @@ async function checkWebsites(websites) {
         const tasks = websites.map(website => limit(() => checkForTaquito(website)));
         const results = await Promise.all(tasks);
 
-        console.log('Results from checkWebsites:', results); // Debugging log
+        //console.log('Results from checkWebsites:', results); // Debugging log
 
         return results.map(result => ({
             website: result.website,
@@ -82,7 +82,8 @@ async function searchGitHubForTaquito(name) {
         if (error.status === 403 && error.response.headers['x-ratelimit-remaining'] === '0') {
             const resetTime = parseInt(error.response.headers['x-ratelimit-reset']) * 1000;
             const delay = resetTime - Date.now() + 1000; // Adding a 1-second buffer
-            console.log(`Rate limit exceeded. Waiting until ${new Date(resetTime).toISOString()} to resume.`);
+            const delayInSeconds = Math.round(delay / 1000); // Convert milliseconds to seconds
+            console.log(`Rate limit exceeded. Waiting for ${delayInSeconds} seconds (until ${new Date(resetTime).toISOString()}) to resume.`);
             await sleep(delay);
             return searchGitHubForTaquito(name);
         } else {
@@ -96,79 +97,66 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getWebsitesFromAPI() {
-    try {
-        const response = await fetch('https://api.dappradar.com/4tsxo4vuhotaojtl/dapps?chain=tezos', {
-            headers: {
-                'X-BLOBR-KEY': 's4EffmiM6cAfls40XwNj0PC2S9TxD4Vt'
-            }
-        });
-        const data = await response.json();
-        console.log(data);
-        const websites = data.results.map(dapp => dapp.website);
-        return websites;
+// async function getWebsitesFromAPI() {
+//     try {
+//         const response = await fetch('https://api.dappradar.com/4tsxo4vuhotaojtl/dapps?chain=tezos', {
+//             headers: {
+//                 'X-BLOBR-KEY': 's4EffmiM6cAfls40XwNj0PC2S9TxD4Vt'
+//             }
+//         });
+//         const data = await response.json();
+//         console.log(data);
+//         const websites = data.results.map(dapp => dapp.website);
+//         return websites;
 
-    } catch (error) {
-        console.error(chalk.red(`Failed to fetch websites from API: ${error}`));
-        return [];
-    }
-}
+//     } catch (error) {
+//         console.error(chalk.red(`Failed to fetch websites from API: ${error}`));
+//         return [];
+//     }
+// }
 
-async function getWebsitesFromFile() {
+async function getWebsitesFromCombinedFile() {
     try {
-        const data = await fs.readFile('website_addresses.json', 'utf8'); // Read the file with UTF-8 encoding
+        const data = await fs.readFile('site_data.json', 'utf8'); // Read the file with UTF-8 encoding
         const json = JSON.parse(data); // Parse the JSON content
 
-        // Assuming the JSON file has a "websites" array
-        const websites = json.websites;
+        // Extract just the website URLs from the combined data
+        const websites = json.combined.map(item => item.website);
         return websites;
     } catch (error) {
-        console.error(chalk.red(`Failed to read websites from file: ${error}`));
+        console.error(chalk.red(`Failed to read websites from combined file: ${error}`));
         return [];
     }
 }
 
-
 async function main() {
-
-    const websites = await getWebsitesFromFile();
-    console.log('websites:', websites);
-    const websiteResults = await checkWebsites(websites);
-    console.log('websiteResults:', websiteResults); // Check the output
+    console.log(chalk.blue('\nChecking websites... hang on for a bit.'));
+    const combinedData = JSON.parse(await fs.readFile('site_data.json', 'utf8')).combined;
+    const websiteResults = await checkWebsites(combinedData.map(item => item.website));
 
     if (!Array.isArray(websiteResults)) {
         throw new Error('websiteResults is not an array');
     }
-    try {
-        const namesData = await fs.readFile('names.json', 'utf8');
-        const names = JSON.parse(namesData).names;
 
-        if (!Array.isArray(websiteResults)) {
-            throw new Error('websiteResults is not an array');
-        }
+    const table = new Table({
+        head: ['Name', 'Website', 'Reachable', 'Uses Taquito on Website', 'Uses Taquito on GitHub'],
+        colWidths: [15, 30, 15, 25, 25]
+    });
 
-        if (!Array.isArray(names)) {
-            throw new Error('names is not an array');
-        }
+    for (const item of combinedData) {
+        const websiteResult = websiteResults.find(w => w.website === item.website);
 
-        const table = new Table({
-            head: ['Name', 'Reachable', 'Uses Taquito on Website', 'Uses Taquito on GitHub'],
-            colWidths: [30, 10, 20, 25]
-        });
+        // Debug: log the matching result
+        //console.log(`Matching result for ${item.name}:`, websiteResult);
 
-        for (const name of names) {
-            const websiteResult = websiteResults.find(w => w.website === name);
-            const reachable = websiteResult ? '✔' : '✖';
-            const usesTaquitoOnWebsite = websiteResult && websiteResult.usesTaquito ? '✔' : '✖';
+        const reachable = websiteResult.reachable;
+        const usesTaquitoOnWebsite = websiteResult.usesTaquito;
 
-            const foundOnGitHub = await searchGitHubForTaquito(name);
-            table.push([name, reachable, usesTaquitoOnWebsite, foundOnGitHub ? '✔' : '✖']);
-        }
-
-        console.log(table.toString());
-    } catch (error) {
-        console.error(`Error: ${error.message}`);
+        const foundOnGitHub = await searchGitHubForTaquito(item.name);
+        table.push([item.name, item.website, reachable, usesTaquitoOnWebsite, foundOnGitHub ? '✔' : '✖']);
     }
+
+    console.log(table.toString());
 }
 
 main();
