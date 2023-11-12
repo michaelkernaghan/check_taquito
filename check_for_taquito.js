@@ -115,20 +115,6 @@ async function sleep(ms) {
 //     }
 // }
 
-async function getWebsitesFromCombinedFile() {
-    try {
-        const data = await fs.readFile('site_data.json', 'utf8'); // Read the file with UTF-8 encoding
-        const json = JSON.parse(data); // Parse the JSON content
-
-        // Extract just the website URLs from the combined data
-        const websites = json.combined.map(item => item.website);
-        return websites;
-    } catch (error) {
-        console.error(chalk.red(`Failed to read websites from combined file: ${error}`));
-        return [];
-    }
-}
-
 async function main() {
     console.log(chalk.blue('\nChecking websites... hang on for a bit.'));
     const combinedData = JSON.parse(await fs.readFile('site_data.json', 'utf8')).combined;
