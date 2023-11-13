@@ -55,11 +55,17 @@ async function checkWebsites(websites) {
     const pLimit = (await import('p-limit')).default;
     const limit = pLimit(5); // limit to 5 concurrent tasks
 
-    try {
-        const tasks = websites.map(website => limit(() => checkForTaquito(website)));
-        const results = await Promise.all(tasks);
+    let remainingWebsites = websites.length; // Initialize with the total number of websites
 
-        //console.log('Results from checkWebsites:', results); // Debugging log
+    try {
+        const tasks = websites.map(website => limit(async () => {
+            const result = await checkForTaquito(website);
+            remainingWebsites--; // Decrement the count after checking each website
+            console.log(chalk.yellow(`Checking ${website}... ${remainingWebsites} websites left.`)); // Print the countdown
+            return result;
+        }));
+
+        const results = await Promise.all(tasks);
 
         return results.map(result => ({
             website: result.website,
@@ -76,6 +82,7 @@ async function checkWebsites(websites) {
 async function searchGitHubForTaquito(name) {
     const query = `org:${name} taquito`;
     try {
+        console.log(chalk.blue(`Searching ${name} on GitHub...`));
         const response = await octokit.request('GET /search/code', { q: query });
         return response.data.total_count > 0; // Check if there are results
     } catch (error) {
@@ -97,24 +104,6 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// async function getWebsitesFromAPI() {
-//     try {
-//         const response = await fetch('https://api.dappradar.com/4tsxo4vuhotaojtl/dapps?chain=tezos', {
-//             headers: {
-//                 'X-BLOBR-KEY': 's4EffmiM6cAfls40XwNj0PC2S9TxD4Vt'
-//             }
-//         });
-//         const data = await response.json();
-//         console.log(data);
-//         const websites = data.results.map(dapp => dapp.website);
-//         return websites;
-
-//     } catch (error) {
-//         console.error(chalk.red(`Failed to fetch websites from API: ${error}`));
-//         return [];
-//     }
-// }
-
 async function main() {
     console.log(chalk.blue('\nChecking websites... hang on for a bit.'));
     const combinedData = JSON.parse(await fs.readFile('site_data.json', 'utf8')).combined;
@@ -124,25 +113,37 @@ async function main() {
         throw new Error('websiteResults is not an array');
     }
 
-    const table = new Table({
-        head: ['Name', 'Website', 'Reachable', 'Uses Taquito on Website', 'Uses Taquito on GitHub'],
-        colWidths: [15, 30, 15, 25, 25]
-    });
+    // Initialize summary data
+    let reachableWebsites = [];
+    let websitesUsingTaquito = [];
+    let githubReposUsingTaquito = [];
 
     for (const item of combinedData) {
         const websiteResult = websiteResults.find(w => w.website === item.website);
-
-        // Debug: log the matching result
-        //console.log(`Matching result for ${item.name}:`, websiteResult);
-
-        const reachable = websiteResult.reachable;
-        const usesTaquitoOnWebsite = websiteResult.usesTaquito;
+        
+        if (websiteResult.reachable === '✔') {
+            reachableWebsites.push(item.website);
+        }
+        if (websiteResult.usesTaquito === '✔') {
+            websitesUsingTaquito.push(item.website);
+        }
 
         const foundOnGitHub = await searchGitHubForTaquito(item.name);
-        table.push([item.name, item.website, reachable, usesTaquitoOnWebsite, foundOnGitHub ? '✔' : '✖']);
+        if (foundOnGitHub) {
+            githubReposUsingTaquito.push(item.name);
+        }
     }
 
-    console.log(table.toString());
+    // Print summary
+    console.log(chalk.green(`\nSummary of Results:`));
+    console.log(chalk.green(`Reachable Websites: ${reachableWebsites.length}`));
+    reachableWebsites.forEach(site => console.log(site));
+
+    console.log(chalk.green(`\nWebsites Using Taquito: ${websitesUsingTaquito.length}`));
+    websitesUsingTaquito.forEach(site => console.log(site));
+
+    console.log(chalk.green(`\nGitHub Repos Using Taquito: ${githubReposUsingTaquito.length}`));
+    githubReposUsingTaquito.forEach(repo => console.log(repo));
 }
 
 main();
