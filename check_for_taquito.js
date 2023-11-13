@@ -120,7 +120,7 @@ async function main() {
 
     for (const item of combinedData) {
         const websiteResult = websiteResults.find(w => w.website === item.website);
-        
+
         if (websiteResult.reachable === '✔') {
             reachableWebsites.push(item.website);
         }
@@ -134,6 +134,15 @@ async function main() {
         }
     }
 
+    // Convert GitHub Repos list into a set
+    let githubReposSet = new Set(githubReposUsingTaquito.map(name => name.toLowerCase()));
+
+    // Filter reachable websites
+    let websitesWithoutTaquito = reachableWebsites.filter(website => {
+        let websiteName = website.split('/')[2].replace('www.', '').split('.')[0].toLowerCase(); // Extract name from URL
+        return !websitesUsingTaquito.includes(website) && !githubReposSet.has(websiteName);
+    });
+
     // Print summary
     console.log(chalk.green(`\nSummary of Results:`));
     console.log(chalk.green(`Reachable Websites: ${reachableWebsites.length}`));
@@ -144,6 +153,9 @@ async function main() {
 
     console.log(chalk.green(`\nGitHub Repos Using Taquito: ${githubReposUsingTaquito.length}`));
     githubReposUsingTaquito.forEach(repo => console.log(repo));
+
+    console.log("\nWebsites that are reachable but do not use Taquito (or have Taquito in their GitHub repo):");
+    console.log(websitesWithoutTaquito);
 }
 
 main();

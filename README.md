@@ -367,8 +367,8 @@ This project is licensed under the [MIT License](LICENSE).
 │ NFTrading Ca… │ https://www.0x21.xyz/        │ ✔             │ ✖                       │ ✖                       │
 └───────────────┴──────────────────────────────┴───────────────┴─────────────────────────┴─────────────────────────┘
 ```
-```
 ### Websites Using Taquito: 65
+```
 https://kalamint.io/
 https://quipuswap.com/
 https://www.tzcolors.io/
@@ -434,8 +434,9 @@ https://opusdei.money/
 https://collectibles.manutd.com/
 https://www.admire.art/
 https://objkt.com/collection/KT1LCLG5jecxPf9s2zKgiRrgdwCi1BvU7uoF
-
+```
 ### GitHub Repos Using Taquito: 11
+```
 Rarible
 TzColors
 TzButton
